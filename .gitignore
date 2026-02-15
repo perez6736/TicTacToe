@@ -1,0 +1,62 @@
+# =====================
+# Node / Package managers
+# =====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =====================
+# TypeScript build output
+# =====================
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# =====================
+# Environment files
+# =====================
+.env
+.env.*
+!.env.example
+
+# =====================
+# Coverage / test output
+# =====================
+coverage/
+.nyc_output/
+playwright-report/
+webdriverio-report/
+
+# =====================
+# Logs
+# =====================
+logs/
+*.log
+
+# =====================
+# OS / Editor
+# =====================
+.DS_Store
+Thumbs.db
+
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+.idea/
+*.iml
+
+# =====================
+# Temporary / cache
+# =====================
+.cache/
+.tmp/
+.temp/
+
+# =====================
+# Vue / Vite (future-proof)
+# =====================
+.vite/
