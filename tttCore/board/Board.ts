@@ -1,16 +1,18 @@
 type Cell = string | null;
-type Cells = Cell[][];
+type aBoard = Cell[];
 
 export class Board {
-  private cells;
+  private board;
 
   constructor() {
-    this.cells = Array.from({ length: 3 }, () =>
-      Array.from({ length: 3 }, () => null),
-    );
+    this.board = Array.from({ length: 9 }, () => null);
+  }
+
+  getBoard(): aBoard {
+    return this.board;
   }
 
   getCell(row: number, col: number): Cell | undefined {
-    return this.cells[row]![col]!;
+    return this.board[row]![col]!;
   }
 }
