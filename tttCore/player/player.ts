@@ -1,4 +1,4 @@
-type playerMark = 'X' | 'O';
+export type playerMark = 'X' | 'O';
 
 export class Player {
   private player: playerMark;
