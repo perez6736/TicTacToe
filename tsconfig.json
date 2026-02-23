@@ -8,6 +8,7 @@
     // Environment Settings
     "module": "commonjs",
     "target": "es2020",
+    "types": ["node"],
 
     // Other Outputs
     "sourceMap": true,

@@ -1,5 +1,6 @@
 type Cell = string | null;
 type aBoard = Cell[];
+import { Player } from '../player/player';
 
 export class Board {
   private board;
@@ -12,7 +13,17 @@ export class Board {
     return this.board;
   }
 
-  getCell(row: number, col: number): Cell | undefined {
-    return this.board[row]![col]!;
+  getCell(cell: number): Cell | undefined {
+    return this.board[cell]!;
+  }
+
+  placeMove(move: number, player: Player) {
+    //update cell with move
+    throw new Error('Method not implemented.');
+  }
+
+  isValidSpot(move: number): boolean {
+    //if cell is not null its not valid.
+    return this.getCell(move) != null;
   }
 }
