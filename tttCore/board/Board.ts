@@ -26,4 +26,8 @@ export class Board {
     //if cell is not null its not valid.
     return this.getCell(move) != null;
   }
+
+  printBoard() {
+    console.log(this.board);
+  }
 }

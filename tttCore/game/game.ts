@@ -1,4 +1,4 @@
-import { Board } from '../board/Board';
+import { Board } from '../board/board';
 import { Player } from '../player/player';
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
@@ -10,6 +10,7 @@ export class Game {
   private board!: Board;
   private player1!: Player;
   private player2!: Player;
+  private gameState!: boolean;
 
   constructor() {}
 
@@ -20,50 +21,42 @@ export class Game {
     this.player1 = new Player('X');
     this.player2 = new Player('O');
     this.currentTurn = this.player1;
+    this.gameState = true;
 
+    // we will keep looping turns untill game is over.
+    while (this.gameState) {
+      await this.doAturn();
+    }
+
+    console.log('game over');
+  }
+
+  // this function will perform all steps to execute a single turn in tictactoe
+  async doAturn() {
     // this moves to new class for humanMoveStragety
     // ask current player to make a move
     const answer = await rl.question('Enter a move (0-8): ');
     // current player makes a move - update board state
     const move = Number(answer);
-
     if (this.board.isValidSpot(move)) {
       this.board.placeMove(move, this.currentTurn);
     }
     // check if player won or if game is over
     if (this.didWin()) {
+      this.gameState = false;
       return;
     }
-
-    this.currentTurn =
-      this.currentTurn === this.player1 ? this.player2 : this.player1;
-
-    // player 2 makes a move
-    // this moves to new class for humanMoveStragety
-    // ask current player to make a move
-    const answer2 = await rl.question('Enter a move (0-8): ');
-    // current player makes a move - update board state
-    const move2 = Number(answer);
-
-    if (this.board.isValidSpot(move)) {
-      this.board.placeMove(move, this.currentTurn);
-    }
-    // check if player won or if game is over
-    if (this.didWin()) {
+    if (this.isGameOver()) {
+      this.gameState = false;
       return;
     }
-
     this.currentTurn =
       this.currentTurn === this.player1 ? this.player2 : this.player1;
-
-    //ToDo : -----
-    // check if player won or if game is over
-    // if player wins - end game and say playerx won!
-    // if Tie - end game and say it is a tie
-    // exit game loop
   }
 
-  getCurrentTurn() {}
+  getCurrentTurn() {
+    return this.currentTurn;
+  }
 
   didWin(): boolean {
     //define win patterns for 3x3 - this wont scale to larger boards
@@ -92,6 +85,12 @@ export class Game {
 
   isGameOver() {
     // are there any vlaid moves left on the board
-    // loop through board array and if none are null game is over
+    // loop through board array and if there is null - valid spot open - game not over
+    for (let spot of this.board.getBoard()) {
+      if (spot === null) {
+        return false;
+      }
+    }
+    return true;
   }
 }
