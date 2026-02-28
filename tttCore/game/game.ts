@@ -71,14 +71,14 @@ export class Game {
   didWin(): boolean {
     //define win patterns for 3x3 - this wont scale to larger boards
     const winningPositions = [
-      [1, 2, 3],
-      [4, 5, 6],
-      [7, 8, 9],
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
       [1, 4, 7],
       [2, 5, 8],
-      [3, 6, 9],
-      [1, 5, 9],
-      [3, 5, 7],
+      [0, 4, 8],
+      [2, 4, 6],
     ];
     // loop through winningpositions and check to see if Board.cell[winningPositions[i][j]] all have same character.
     for (const pattern of winningPositions) {
