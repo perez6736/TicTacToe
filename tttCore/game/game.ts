@@ -2,6 +2,7 @@ import { Board } from '../board/board';
 import { Player } from '../player/player';
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
+import { GameState } from './gameState';
 
 const rl = readline.createInterface({ input, output });
 
@@ -10,7 +11,7 @@ export class Game {
   private board!: Board;
   private player1!: Player;
   private player2!: Player;
-  private gameState!: boolean;
+  private gameState: GameState = GameState.NotStarted;
 
   constructor() {}
 
@@ -21,11 +22,12 @@ export class Game {
     this.player1 = new Player('X');
     this.player2 = new Player('O');
     this.currentTurn = this.player1;
-    this.gameState = true;
+    this.gameState = GameState.Playing;
 
     // we will keep looping turns untill game is over.
-    while (this.gameState) {
+    while (GameState.Playing) {
       await this.doAturn();
+      console.log(this.board.getBoard());
     }
 
     console.log('game over');
@@ -33,23 +35,31 @@ export class Game {
 
   // this function will perform all steps to execute a single turn in tictactoe
   async doAturn() {
-    // this moves to new class for humanMoveStragety
-    // ask current player to make a move
-    const answer = await rl.question('Enter a move (0-8): ');
-    // current player makes a move - update board state
-    const move = Number(answer);
-    if (this.board.isValidSpot(move)) {
+    while (true) {
+      // this moves to new class for humanMoveStragety
+      // ask current player to make a move
+      const answer = await rl.question('Enter a move (0-8): ');
+      // current player makes a move - update board state
+      const move = Number(answer);
+
+      if (!this.board.isValidSpot(move)) {
+        console.log('nor a valid move');
+        continue;
+      }
+
       this.board.placeMove(move, this.currentTurn);
+      break;
     }
-    // check if player won or if game is over
+
     if (this.didWin()) {
-      this.gameState = false;
+      this.gameState = GameState.Won;
       return;
     }
     if (this.isGameOver()) {
-      this.gameState = false;
+      this.gameState = GameState.Draw;
       return;
     }
+
     this.currentTurn =
       this.currentTurn === this.player1 ? this.player2 : this.player1;
   }
@@ -83,7 +93,7 @@ export class Game {
     return false;
   }
 
-  isGameOver() {
+  isGameOver(): boolean {
     // are there any vlaid moves left on the board
     // loop through board array and if there is null - valid spot open - game not over
     for (let spot of this.board.getBoard()) {

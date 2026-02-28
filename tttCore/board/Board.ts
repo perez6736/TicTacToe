@@ -1,9 +1,9 @@
-type Cell = string | null;
+type Cell = playerMark | null;
 type aBoard = Cell[];
-import { Player } from '../player/player';
+import { Player, playerMark } from '../player/player';
 
 export class Board {
-  private board;
+  private board: aBoard;
 
   constructor() {
     this.board = Array.from({ length: 9 }, () => null);
@@ -18,13 +18,12 @@ export class Board {
   }
 
   placeMove(move: number, player: Player) {
-    //update cell with move
-    throw new Error('Method not implemented.');
+    this.board[move] = player.getPlayer();
   }
 
   isValidSpot(move: number): boolean {
     //if cell is not null its not valid.
-    return this.getCell(move) != null;
+    return this.getCell(move) === null;
   }
 
   printBoard() {
