@@ -41,6 +41,7 @@ export class Game {
       const answer = await rl.question('Enter a move (0-8): ');
       // current player makes a move - update board state
       const move = Number(answer);
+      // To-Do: wrap in a method as takeMove() inorder to subtract 1 to match the index of the array.
 
       if (!this.board.isValidSpot(move)) {
         console.log('nor a valid move');

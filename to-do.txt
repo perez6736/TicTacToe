@@ -1,0 +1,2 @@
+1. Have the input 1-9 match the board correctly 
+2. win dector and tie dector to end game gracefully 
