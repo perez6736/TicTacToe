@@ -25,12 +25,14 @@ export class Game {
     this.gameState = GameState.Playing;
 
     // we will keep looping turns untill game is over.
-    while (GameState.Playing) {
+    while (this.gameState === GameState.Playing) {
       await this.doAturn();
+      console.log('in game while loop');
       console.log(this.board.getBoard());
     }
 
     console.log('game over');
+    rl.close();
   }
 
   // this function will perform all steps to execute a single turn in tictactoe
@@ -38,10 +40,10 @@ export class Game {
     while (true) {
       // this moves to new class for humanMoveStragety
       // ask current player to make a move
-      const answer = await rl.question('Enter a move (0-8): ');
+      const answer = await rl.question('Enter a move (1-9): ');
       // current player makes a move - update board state
-      const move = Number(answer);
-      // To-Do: wrap in a method as takeMove() inorder to subtract 1 to match the index of the array.
+      const inputMove = Number(answer);
+      const move = inputMove - 1;
 
       if (!this.board.isValidSpot(move)) {
         console.log('nor a valid move');
@@ -53,10 +55,12 @@ export class Game {
     }
 
     if (this.didWin()) {
+      console.log(this.currentTurn.getPlayer() + ' has won');
       this.gameState = GameState.Won;
       return;
     }
     if (this.isGameOver()) {
+      console.log('game is tie!');
       this.gameState = GameState.Draw;
       return;
     }
