@@ -12,6 +12,7 @@ export class Game {
   private player1!: Player;
   private player2!: Player;
   private gameState: GameState = GameState.NotStarted;
+  private turnNumber: number = 0;
 
   constructor() {}
 
@@ -26,8 +27,9 @@ export class Game {
 
     // we will keep looping turns untill game is over.
     while (this.gameState === GameState.Playing) {
+      this.turnNumber++;
+      console.log('Turn number - ' + this.turnNumber);
       await this.doAturn();
-      console.log('in game while loop');
       console.log(this.board.getBoard());
     }
 
