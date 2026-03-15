@@ -3,6 +3,7 @@ import { Player } from '../player/player';
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import { GameState } from './gameState';
+import { moveMaker } from '../moveMaker/moveMaker';
 
 const rl = readline.createInterface({ input, output });
 
@@ -40,12 +41,9 @@ export class Game {
   // this function will perform all steps to execute a single turn in tictactoe
   async doAturn() {
     while (true) {
-      // this moves to new class for humanMoveStragety
       // ask current player to make a move
       const answer = await rl.question('Enter a move (1-9): ');
-      // current player makes a move - update board state
-      const inputMove = Number(answer);
-      const move = inputMove - 1;
+      const move = moveMaker.playerMove(answer);
 
       if (!this.board.isValidSpot(move)) {
         console.log('nor a valid move');

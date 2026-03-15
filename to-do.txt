@@ -1,3 +1,13 @@
 1. Have the input 1-9 match the board correctly - done
 2. win dector and tie dector to end game gracefully - done 
 3. keep track of what turn we are on - done 
+
+implement a move picker stragety class 
+- there should be a class that has methods that deal with moves 
+-- method for player move
+---asks player for move , gets move and returns move to game class 
+--method for computer move 
+---basic random move - scans board for valid moves and returns random valid move 
+---minimax method - scans boards for valids move and calcualtes uysing minimax algorithm for best move
+---- bonus, we can try to do pruning but might not be enough valid moves for this option 
+---are there any other algorithms we can implment for fun? 
