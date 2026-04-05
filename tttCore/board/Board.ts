@@ -29,4 +29,16 @@ export class Board {
   printBoard() {
     console.log(this.board);
   }
+
+  getValidMoves(): number[] {
+    return this.board
+      .map((cell, i) => {
+        if (cell === null) {
+          return i;
+        } else {
+          return -1;
+        }
+      })
+      .filter((i) => i !== -1);
+  }
 }

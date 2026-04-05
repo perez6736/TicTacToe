@@ -1,11 +1,8 @@
 import { Board } from '../board/board';
 import { Player } from '../player/player';
-import * as readline from 'node:readline/promises';
-import { stdin as input, stdout as output } from 'node:process';
+import { gameMode, Menu } from '../menu/menu';
 import { GameState } from './gameState';
 import { moveMaker } from '../moveMaker/moveMaker';
-
-const rl = readline.createInterface({ input, output });
 
 export class Game {
   private currentTurn!: Player;
@@ -14,6 +11,7 @@ export class Game {
   private player2!: Player;
   private gameState: GameState = GameState.NotStarted;
   private turnNumber: number = 0;
+  private gameMode: gameMode;
 
   constructor() {}
 
@@ -26,6 +24,9 @@ export class Game {
     this.currentTurn = this.player1;
     this.gameState = GameState.Playing;
 
+    //menu
+    this.gameMode = await Menu.selectGameMode();
+
     // we will keep looping turns untill game is over.
     while (this.gameState === GameState.Playing) {
       this.turnNumber++;
@@ -35,18 +36,17 @@ export class Game {
     }
 
     console.log('game over');
-    rl.close();
   }
 
   // this function will perform all steps to execute a single turn in tictactoe
   async doAturn() {
     while (true) {
       // ask current player to make a move
-      const answer = await rl.question('Enter a move (1-9): ');
-      const move = moveMaker.playerMove(answer);
+      // const answer = await rl.question('Enter a move (1-9): ');
+      const move = moveMaker.randomComputerMove(this.board.getValidMoves());
 
       if (!this.board.isValidSpot(move)) {
-        console.log('nor a valid move');
+        console.log('not a valid move');
         continue;
       }
 
