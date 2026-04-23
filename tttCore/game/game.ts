@@ -13,24 +13,25 @@ export class Game {
   private turnNumber: number = 0;
   private gameMode: gameMode;
 
-  constructor() {}
+  constructor(mode: gameMode) {
+    this.gameMode = mode;
+    this.board = new Board();
+    this.player1 = new Player('X', 'Human');
+    this.gameMode === 'pvc'
+      ? (this.player2 = new Player('O', 'Non-Human'))
+      : (this.player2 = new Player('O', 'Human'));
+    // setup new board and new players
+    this.currentTurn = this.player1;
+  }
 
   // game loop
   async start() {
-    // setup new board and new players
-    this.board = new Board();
-    this.player1 = new Player('X');
-    this.player2 = new Player('O');
-    this.currentTurn = this.player1;
     this.gameState = GameState.Playing;
-
-    //menu
-    this.gameMode = await Menu.selectGameMode();
-
     // we will keep looping turns untill game is over.
     while (this.gameState === GameState.Playing) {
       this.turnNumber++;
       console.log('Turn number - ' + this.turnNumber);
+
       await this.doAturn();
       console.log(this.board.getBoard());
     }
@@ -41,9 +42,7 @@ export class Game {
   // this function will perform all steps to execute a single turn in tictactoe
   async doAturn() {
     while (true) {
-      // ask current player to make a move
-      // const answer = await rl.question('Enter a move (1-9): ');
-      const move = moveMaker.randomComputerMove(this.board.getValidMoves());
+      const move = await this.currentTurn.move(this.board.getValidMoves());
 
       if (!this.board.isValidSpot(move)) {
         console.log('not a valid move');

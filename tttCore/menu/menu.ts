@@ -13,10 +13,10 @@ export class Menu {
 
       if (gamemode === '1') {
         rl.close();
-        return 'pvp';
+        return 'pvc';
       } else if (gamemode === '2') {
         rl.close();
-        return 'pvc';
+        return 'pvp';
       } else {
         console.log('please select a valid game mode - 1 or 2.');
       }

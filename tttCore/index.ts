@@ -1,4 +1,10 @@
 import { Game } from './game/game';
+import { Menu, gameMode } from './menu/menu';
 
-let game = new Game();
-game.start();
+async function main() {
+  const mode: gameMode = await Menu.selectGameMode();
+  const game = new Game(mode);
+  await game.start();
+}
+
+main();
