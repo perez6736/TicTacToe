@@ -1,5 +1,5 @@
-type Cell = playerMark | null;
-type aBoard = Cell[];
+export type Cell = playerMark | null;
+export type aBoard = Cell[];
 import { Player, playerMark } from '../player/player';
 
 export class Board {

@@ -1,3 +1,4 @@
+import { aBoard } from '../board/board';
 import { moveMaker } from '../moveMaker/moveMaker';
 
 export type playerMark = 'X' | 'O';
@@ -20,13 +21,23 @@ export class Player {
     return this.playerType === 'Human';
   }
 
-  move(validmoves: number[]): Promise<number> {
+  move(
+    validmoves: number[],
+    boardState: aBoard,
+    aiMark: playerMark,
+    oppMark: playerMark,
+  ): Promise<number> {
     if (this.isHuman()) {
       let move = moveMaker.playerMove();
       return move;
     } else {
-      let randomMove = moveMaker.randomComputerMove(validmoves);
-      return Promise.resolve(randomMove);
+      let ComputerMove = moveMaker.mediumComputermove(
+        boardState,
+        aiMark,
+        oppMark,
+        validmoves,
+      );
+      return Promise.resolve(ComputerMove);
     }
   }
 }
