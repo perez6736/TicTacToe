@@ -1,6 +1,6 @@
 import { aBoard } from '../board/board';
 
-export function didWin(boardstate: aBoard): boolean {
+export function didWin(boardstate: aBoard, player: playerMark): boolean {
   //define win patterns for 3x3 - this wont scale to larger boards
   const winningPositions = [
     [0, 1, 2],
@@ -14,10 +14,9 @@ export function didWin(boardstate: aBoard): boolean {
   ];
   // loop through winningpositions and check to see if Board.cell[winningPositions[i][j]] all have same character.
   for (const pattern of winningPositions) {
-    const firstCell = boardstate[pattern[0]!];
-    if (!firstCell) continue; //if the first cell we check is empty move to next pattern.
+    if (boardstate[pattern[0]!] !== player) continue; //if the first cell we check is empty or not same as player we are checking - move on
     // if every index in pattern is same there is a win.
-    const allMatch = pattern.every((index) => boardstate[index] === firstCell);
+    const allMatch = pattern.every((index) => boardstate[index] === player);
     if (allMatch) return true;
   }
   return false;

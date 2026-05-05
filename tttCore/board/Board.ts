@@ -30,8 +30,8 @@ export class Board {
     console.log(this.board);
   }
 
-  getValidMoves(): number[] {
-    return this.board
+  static getValidMoves(board: aBoard): number[] {
+    return board
       .map((cell, i) => {
         if (cell === null) {
           return i;

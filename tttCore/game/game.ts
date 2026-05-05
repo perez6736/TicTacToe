@@ -43,7 +43,7 @@ export class Game {
   async doAturn() {
     while (true) {
       const move = await this.currentTurn.move(
-        this.board.getValidMoves(),
+        Board.getValidMoves(this.board.getBoard()),
         this.board.getBoard(),
         this.getCurrentTurn().getPlayer(),
         this.getCurrentTurn().getPlayer() === 'X' ? 'O' : 'X',
@@ -58,7 +58,7 @@ export class Game {
       break;
     }
 
-    if (didWin(this.board.getBoard())) {
+    if (didWin(this.board.getBoard(), this.currentTurn.getPlayer())) {
       console.log(this.currentTurn.getPlayer() + ' has won');
       this.gameState = GameState.Won;
       return;

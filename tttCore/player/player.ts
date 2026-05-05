@@ -31,11 +31,11 @@ export class Player {
       let move = moveMaker.playerMove();
       return move;
     } else {
-      let ComputerMove = moveMaker.mediumComputermove(
+      let ComputerMove = moveMaker.bestMove(
         boardState,
+        validmoves,
         aiMark,
         oppMark,
-        validmoves,
       );
       return Promise.resolve(ComputerMove);
     }
