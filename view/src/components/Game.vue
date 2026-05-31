@@ -1,27 +1,13 @@
 <template>
   <section>
+    Game start!
     <div class="menu-container">
-      <div class="top-left item">Tic</div>
-      <div class="top-middle item">Tac</div>
-      <div class="top-right item">Toe</div>
-      <div
-        class="middle-left item menu-button"
-        v-if="!showDifficulties"
-        @click="clickPlayer1"
-      >
-        1 Player
-      </div>
-      <div class="middle-left item menu-button" v-else>Easy</div>
-      <div class="middle-middle item" v-if="!showDifficulties"></div>
-      <div class="middle-middle item menu-button" v-else>Medium</div>
-      <div
-        class="middle-right item menu-button"
-        v-if="!showDifficulties"
-        @click="clickPlayer2"
-      >
-        2 Player
-      </div>
-      <div class="middle-right item menu-button" v-else>Hard</div>
+      <div class="top-left item"></div>
+      <div class="top-middle item"></div>
+      <div class="top-right item"></div>
+      <div class="middle-left item"></div>
+      <div class="middle-middle item"></div>
+      <div class="middle-right item"></div>
       <div class="bottom-left item"></div>
       <div class="bottom-middle item"></div>
       <div class="bottom-right item"></div>
@@ -31,17 +17,8 @@
 
 <script>
 export default {
-  data() {
-    return { showDifficulties: false };
-  },
-  methods: {
-    clickPlayer1() {
-      this.showDifficulties = !this.showDifficulties;
-    },
-    clickPlayer2() {
-      // start game with 2 players
-    },
-  },
+  data() {},
+  methods: {},
 };
 </script>
 
