@@ -4,9 +4,24 @@
       <div class="top-left item">Tic</div>
       <div class="top-middle item">Tac</div>
       <div class="top-right item">Toe</div>
-      <div class="middle-left item" @click="clickPlayer1">1 Player</div>
-      <div class="middle-middle item"></div>
-      <div class="middle-right item" @click="clickPlayer2">2 Player</div>
+      <div
+        class="middle-left item menu-button"
+        v-if="!showDifficulties"
+        @click="clickPlayer1"
+      >
+        1 Player
+      </div>
+      <div class="middle-left item menu-button" v-else>Easy</div>
+      <div class="middle-middle item" v-if="!showDifficulties"></div>
+      <div class="middle-middle item menu-button" v-else>Medium</div>
+      <div
+        class="middle-right item menu-button"
+        v-if="!showDifficulties"
+        @click="clickPlayer2"
+      >
+        2 Player
+      </div>
+      <div class="middle-right item menu-button" v-else>Hard</div>
       <div class="bottom-left item"></div>
       <div class="bottom-middle item"></div>
       <div class="bottom-right item"></div>
@@ -24,10 +39,12 @@
 
 <script>
 export default {
-  data() {},
+  data() {
+    return { showDifficulties: false };
+  },
   methods: {
     clickPlayer1() {
-      // turn or display the difficuly options
+      this.showDifficulties = !this.showDifficulties;
     },
     clickPlayer2() {
       // start game with 2 players
@@ -106,14 +123,12 @@ section {
   border-right: 2px solid black;
 }
 
-.middle-left,
-.middle-right {
+.menu-button {
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.middle-left:hover,
-.middle-right:hover {
+.menu-button:hover {
   background-color: #f8f8f8;
 }
 </style>
